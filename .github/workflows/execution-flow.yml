@@ -9,15 +9,14 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-        # ^ checkout code/files to VM
       - name: Cache dependencies
         id: cache
-         # store cache outside this particular VM run and share across
-        uses: actions/cache@v3 
+        uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Lint code
         run: npm run lint
@@ -30,9 +29,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Test code
         id: run-tests
@@ -53,9 +53,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build website
         id: build-website
