@@ -1,6 +1,6 @@
 name: Matrix Demo
 on: push
-job:
+jobs:
   build:
     strategy:
       matrix:
