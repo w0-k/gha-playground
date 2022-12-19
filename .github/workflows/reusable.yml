@@ -11,7 +11,9 @@ on:
       result:
         description: The result of the deployment
         value: ${{ jobs.deploy.outputs.outcome }}
-      sha: ${{ jobs.deploy.outputs.sha }}
+      sha: 
+        description: Commit sha
+        value: ${{ jobs.deploy.outputs.sha }}
     # secrets:
     #   some-secret:
     #     required: false
