@@ -37,4 +37,4 @@ jobs:
         run: echo "step-result=success" >> $GITHUB_OUTPUT
       - name: Set SHA
         id: sha
-        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=sha::$(git rev-parse HEAD)"
