@@ -75,6 +75,7 @@ jobs:
     #   some-secret: ${{ secrets.some-secret }}
   print-sha:
     needs: deploy
+    runs-on: ubuntu-latest
     steps:
       - name: Print sha
         run: echo "${{ needs.deploy.outputs.sha }}"
