@@ -10,7 +10,8 @@ on:
     outputs:
       result:
         description: The result of the deployment
-        value: ${{ jobs.deploy.outputs.outcome }} 
+        value: ${{ jobs.deploy.outputs.outcome }}
+      sha: ${{ jobs.deploy.outputs.sha }}
     # secrets:
     #   some-secret:
     #     required: false
@@ -18,6 +19,7 @@ jobs:
   deploy:
     outputs:
       outcome: ${{ steps.set-result.outputs.step-result }}
+      sha: ${{ steps.sha.outputs.sha }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -31,3 +33,6 @@ jobs:
       - name: Set result output
         id: set-result
         run: echo "step-result=success" >> $GITHUB_OUTPUT
+      - name: Set SHA
+        id: sha
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
