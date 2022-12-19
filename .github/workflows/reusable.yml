@@ -21,7 +21,7 @@ jobs:
   deploy:
     outputs:
       outcome: ${{ steps.set-result.outputs.step-result }}
-      sha: ${{ steps.sha.outputs.sha }}
+      sha: ${{ steps.print-sha.outputs.sha-value }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -36,5 +36,6 @@ jobs:
         id: set-result
         run: echo "step-result=success" >> $GITHUB_OUTPUT
       - name: Set SHA
-        id: sha
-        run: echo "::set-output name=sha::$(git rev-parse HEAD)"
+        id: print-sha
+        # run: echo "sha-value=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        run: echo "sha-value=test" >> $GITHUB_OUTPUT
